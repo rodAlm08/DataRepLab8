@@ -1,6 +1,6 @@
 import e from "cors";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 export function Edit() {
@@ -9,6 +9,7 @@ export function Edit() {
     const [title, setTitle] = useState('');
     const [cover, setCover] = useState('');
     const [author, setAuthor] = useState('');
+    const navigate = useNavigate();
 
 //will use axios to redirect http request
 useEffect(()=>{
@@ -33,7 +34,9 @@ useEffect(()=>{
         //will generate a HTTP request with the url + the id 
         axios.put('http://localhost:4000/api/book/' + id, editBook)
         .then((res)=>{
-            console.log(res)
+            console.log(res);
+            //once the operation s susccesseful it will redirect to the read page
+            navigate('/read')
         })
         .catch();
     };
